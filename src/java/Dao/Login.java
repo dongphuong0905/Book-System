@@ -5,6 +5,7 @@
  */
 package Dao;
 
+import Model.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,27 +18,26 @@ import java.sql.Statement;
  */
 public class Login implements DBSInterface {
 
-    public static int checkLogin(String email, String password) {
+    public static User checkLogin(String email, String password) {
         int check = -1;
         try {
             Class.forName(DBSDriver);
             Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
 
-            String sql = "Select [Role],[Password] from [User] where Email = ? ";
+            String sql = "Select Id, [Role], FirstName, LastName [Password], Telephone, Gender, Birthdate, Address from [User] where Email = ? ";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 if (rs.getString("Password").equals(password)) {
-                    check = rs.getInt("Role");
-                } else {
-                    check = -1;
+                    return new User(rs.getString("ID"), rs.getInt("Role"), rs.getString("FirstName"),
+                            rs.getString("LastName"), rs.getString("Password"), rs.getString("Telephone"), email,
+                            rs.getInt("Gender"), rs.getDate("Birthdate"), rs.getString("Address"));
                 }
             }
-
         } catch (Exception e) {
 
         }
-        return check;
+        return null;
     }
 }

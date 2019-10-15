@@ -6,6 +6,7 @@
 package Model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  *
@@ -14,21 +15,23 @@ import java.io.Serializable;
 public class User implements Serializable{
     private String userId;
     private int role;
-    private String username;
+    private String firstname;
+    private String lastname;
     private String password;
     private String phoneNumber;
     private String email;
     private int gender;
-    private String birthday;
+    private Date birthday;
     private String address;
 
     public User() {
     }
 
-    public User(String userId, int role, String username, String password, String phoneNumber, String email, int gender, String birthday, String address) {
+    public User(String userId, int role, String firstname, String lastname, String password, String phoneNumber, String email, int gender, Date birthday, String address) {
         this.userId = userId;
         this.role = role;
-        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -36,6 +39,7 @@ public class User implements Serializable{
         this.birthday = birthday;
         this.address = address;
     }
+
     
 
     public String getUserId() {
@@ -54,13 +58,22 @@ public class User implements Serializable{
         this.role = role;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+    
 
     public String getPassword() {
         return password;
@@ -94,11 +107,11 @@ public class User implements Serializable{
         this.gender = gender;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

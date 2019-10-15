@@ -76,10 +76,16 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String remember = request.getParameter("remember");
-        if(Login.checkLogin(email, password)){
-            request.getRequestDispatcher("index.html").forward(request, response);
-        }else{
-            response.sendRedirect("login.jsp");
+        switch (Login.checkLogin(email, password)) {
+            case 0://Admin
+                request.getRequestDispatcher("index.html").forward(request, response);
+                break;
+            case 1://User
+                response.sendRedirect("forgot-password.html");
+                break;
+            default://Invalid
+                response.sendRedirect("login.jsp");
+                break;
         }
     }
 

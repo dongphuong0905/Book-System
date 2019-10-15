@@ -9,9 +9,9 @@ package Dao;
  *
  * @author PC
  */
-public interface DBSInterface {
+public interface DBSInterface {    
     public String DBSDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    public String DBSName = "jdbc:sqlserver://DESKTOP-BMAV99F\\SQLEXPRESS:1433;databaseName=BookSystem;";
+    public String DBSName = "jdbc:sqlserver://DAONCDE130098\\SQLEXPRESS:50132;databaseName=BookSystem;";
     public String DBSID = "sa";
-    public String DBSPass = "root";
+    public String DBSPass = "1234";
 }

@@ -40,7 +40,7 @@ public class GetUserServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet GetUserServlet</title>");            
+            out.println("<title>Servlet GetUserServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet GetUserServlet at " + request.getContextPath() + "</h1>");
@@ -76,12 +76,13 @@ public class GetUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<User> list = Admin.getUser();
-        if(list.size()>0){
-        request.setAttribute("listUser", list);
-        request.setAttribute("name", list.get(0).getUsername());
-        request.getRequestDispatcher("table.jsp").forward(request, response);
-        }else
+        if (list.size() > 0) {
+            request.setAttribute("listUser", list);
+            request.setAttribute("name", list.get(0).getUsername());
+            request.getRequestDispatcher("table.jsp").forward(request, response);
+        } else {
             request.getRequestDispatcher("index.html");
+        }
     }
 
     /**

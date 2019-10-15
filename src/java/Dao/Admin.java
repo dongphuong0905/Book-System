@@ -23,7 +23,7 @@ import java.util.List;
  * @author Tran Phuong
  */
 public class Admin {
-
+    
     public static List<User> getUser() {
         List<User> list = new ArrayList<>();
         try {

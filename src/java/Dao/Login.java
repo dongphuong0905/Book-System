@@ -17,21 +17,21 @@ import java.sql.Statement;
  */
 public class Login implements DBSInterface {
 
-    public static boolean checkLogin(String email, String password) {
-        boolean check = false;
+    public static int checkLogin(String email, String password) {
+        int check = -1;
         try {
             Class.forName(DBSDriver);
             Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
 
-            String sql = "Select [Password] from [User] where Email = ? ";
+            String sql = "Select [Role],[Password] from [User] where Email = ? ";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                if (rs.getString("password").equals(password)) {
-                    check = true;
+                if (rs.getString("Password").equals(password)) {
+                    check = rs.getInt("Role");
                 } else {
-                    check = false;
+                    check = -1;
                 }
             }
 

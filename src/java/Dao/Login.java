@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Dao;
+package DAO;
 
+import Model.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,29 +16,27 @@ import java.sql.Statement;
  *
  * @author Tran Phuong
  */
-public class Login implements DBSInterface {
+public class Login implements DAO.DBSInterface {
 
-    public static int checkLogin(String email, String password) {
-        int check = -1;
+    public static User checkLogin(String email, String password) {
         try {
             Class.forName(DBSDriver);
             Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
 
-            String sql = "Select [Role],[Password] from [User] where Email = ? ";
+            String sql = "Select Id, [Role], UserAccount, FirstName, LastName, [Password], Telephone, Gender, Birthdate from [User] where Email = ? ";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 if (rs.getString("Password").equals(password)) {
-                    check = rs.getInt("Role");
-                } else {
-                    check = -1;
+                    return new User(rs.getInt("ID"), rs.getInt("Role"), rs.getString("UserAccount"), rs.getString("FirstName"),
+                            rs.getString("LastName"), rs.getString("Password"), rs.getString("Telephone"), email,
+                            rs.getInt("Gender"), rs.getDate("Birthdate"), AddressDAO.getAddress(rs.getInt("ID")));
                 }
             }
-
         } catch (Exception e) {
 
         }
-        return check;
+        return null;
     }
 }

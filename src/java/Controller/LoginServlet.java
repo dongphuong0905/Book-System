@@ -5,7 +5,8 @@
  */
 package Controller;
 
-import Dao.Login;
+import DAO.Login;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,7 +40,7 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
+            out.println("<title>Servlet LoginServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
@@ -59,7 +61,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -75,18 +77,27 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String remember = request.getParameter("remember");
-        switch (Login.checkLogin(email, password)) {
-            case 0://Admin
-                request.getRequestDispatcher("index.html").forward(request, response);
-                break;
-            case 1://User
-                response.sendRedirect("forgot-password.html");
-                break;
-            default://Invalid
-                response.sendRedirect("login.jsp");
-                break;
+        User s = Login.checkLogin(email, password);
+        if (s != null) {
+            System.out.println(s.getAddress());
+            switch (s.getRole()) {
+                case 1://Admin
+                    request.getRequestDispatcher("index.html").forward(request, response);
+                    break;
+                case 2://User
+                    HttpSession session = request.getSession();
+                    session.setAttribute("CurrUser", s);
+                    response.sendRedirect(request.getHeader("referer"));
+                    break;
+                case 3://BlackList
+                    break;
+                default://Invalid
+                    response.sendRedirect("login.jsp");
+                    break;
+            }
         }
+        else response.sendRedirect("login.jsp");
+        
     }
 
     /**

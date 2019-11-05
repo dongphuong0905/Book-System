@@ -5,36 +5,47 @@
  */
 package Model;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  *
- * @author Tran Phuong
+ * @author trong
  */
 public class Book {
-    private String publisherName;
+    private int id;
+    private int bookId;
+    private int publId;
     private String author;
     private String title;
-    private Date publishDate;
-    private int amout;
+    private String description;
+    private Date publishedDate;
+    private BigDecimal price;
+    private int amount;
+    private Promotion promotion;
 
-    public Book(String publisherName, String author, String title, Date publishDate, int amout) {
-        this.publisherName = publisherName;
-        this.author = author;
-        this.title = title;
-        this.publishDate = publishDate;
-        this.amout = amout;
+    public int getId() {
+        return id;
     }
 
-    public Book() {
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getPublisherName() {
-        return publisherName;
+    public int getBookId() {
+        return bookId;
     }
 
-    public void setPublisherName(String publisherName) {
-        this.publisherName = publisherName;
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
+
+    public int getPublId() {
+        return publId;
+    }
+
+    public void setPublId(int publId) {
+        this.publId = publId;
     }
 
     public String getAuthor() {
@@ -53,20 +64,65 @@ public class Book {
         this.title = title;
     }
 
-    public Date getPublishDate() {
-        return publishDate;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPublishDate(Date publishDate) {
-        this.publishDate = publishDate;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getAmout() {
-        return amout;
+    public Date getPublishedDate() {
+        return publishedDate;
     }
 
-    public void setAmout(int amout) {
-        this.amout = amout;
+    public void setPublishedDate(Date publishedDate) {
+        this.publishedDate = publishedDate;
     }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    public void setPromotion(Promotion promotion) {
+        this.promotion = promotion;
+    }
+
+
+    public Book() {
+    }
+
+    public Book(int id, int bookId, int publId, String author, String title, String description, Date publishedDate, BigDecimal price, int amount, Promotion promotion) {
+        this.id = id;
+        this.bookId = bookId;
+        this.publId = publId;
+        this.author = author;
+        this.title = title;
+        this.description = description;
+        this.publishedDate = publishedDate;
+        this.price = price;
+        this.amount = amount;
+        this.promotion = promotion;
+    }
+    
+    
+    
+    
     
 }

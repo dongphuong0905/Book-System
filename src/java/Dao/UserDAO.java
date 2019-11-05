@@ -3,64 +3,73 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Dao;
+package DAO;
 
-import static Dao.DBSInterface.DBSDriver;
-import static Dao.DBSInterface.DBSID;
-import static Dao.DBSInterface.DBSName;
-import static Dao.DBSInterface.DBSPass;
 import Model.User;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
- * @author PC
+ * @author trong
  */
-public class UserDAO {
+public class UserDAO implements DBSInterface{
 
-    public User user;
+    public static User getCurrentUser(String email) {
+        try {
+            Connection con = new Database().getConnection();
 
-    public UserDAO() {
-    }
-
-    public UserDAO(User user) {
-        this.user = user;
-    }
-
-    public boolean changePassword(String oldPass, String newPass, String newPassAuth) {
-        if (oldPass.equals(this.user.getPassword())) {
-            if (newPass.equals(newPassAuth)) {
-                try {
-                    Class.forName(DBSDriver);
-                    Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
-                    String sql = "Update [User] set [Password] = ? where Email = ? ";
-                    PreparedStatement stmt = con.prepareStatement(sql);
-                    stmt.setString(1, newPass);
-                    stmt.setString(2, this.user.getEmail());
-                    stmt.executeUpdate();
-                    return true;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            String sql = "Select Id, [Role], UserAccount, FirstName, LastName, [Password], Telephone, Gender, Birthdate from [User] where Email = ? ";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                return new User(rs.getInt("ID"), rs.getInt("Role"), rs.getString("UserAccount"), rs.getString("FirstName"),
+                        rs.getString("LastName"), rs.getString("Password"), rs.getString("Telephone"), email,
+                        rs.getInt("Gender"), rs.getDate("Birthdate"), AddressDAO.getAddress(rs.getInt("ID")));
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
-    public boolean changeInformation(String userId, String phoneNumber, int gender, String birthday, String address) {
+    public static User getCurrentUser(int UserID) {
+        try {
+            Connection con = new Database().getConnection();
+
+            String sql = "Select Id, [Role], UserAccount, FirstName, LastName, [Password], Telephone, Email, Gender, Birthdate, [Address] from [User] where ID = " + UserID;
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                return new User(rs.getInt("ID"), rs.getInt("Role"), rs.getString("UserAccount"), rs.getString("FirstName"),
+                        rs.getString("LastName"), rs.getString("Password"), rs.getString("Telephone"), rs.getString("Email"),
+                        rs.getInt("Gender"), rs.getDate("Birthdate"), AddressDAO.getAddress(rs.getInt("ID")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static boolean changeInformation(int userId, String firstname, String lastname, String phoneNumber, int gender, Date birthday) {
         try {
             Class.forName(DBSDriver);
             Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
-            String sql = "Update [User] set phoneNumber = ?, gender = ?, birthday = ?, address = ? where userId = ? ";
+            String sql = "Update [User] set telephone = ?, gender = ?, Birthdate = ?, firstname = ?, lastname = ? where ID = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, phoneNumber);
             stmt.setInt(2, gender);
-            stmt.setString(3, birthday);
-            stmt.setString(4, address);
-            stmt.setString(4, userId);
+            stmt.setDate(3, birthday);
+            stmt.setString(4, firstname);
+            stmt.setString(5, lastname);
+            stmt.setInt(6, userId);
             stmt.executeUpdate();
+            
             return true;
         } catch (Exception e) {
             e.printStackTrace();

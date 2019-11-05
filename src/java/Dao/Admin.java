@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Dao;
+package DAO;
 
-import static Dao.DBSInterface.DBSDriver;
-import static Dao.DBSInterface.DBSID;
-import static Dao.DBSInterface.DBSName;
-import static Dao.DBSInterface.DBSPass;
+import static DAO.DBSInterface.DBSDriver;
+import static DAO.DBSInterface.DBSID;
+import static DAO.DBSInterface.DBSName;
+import static DAO.DBSInterface.DBSPass;
 import Model.Book;
 import Model.User;
 import java.sql.Connection;
@@ -23,38 +23,23 @@ import java.util.List;
  * @author Tran Phuong
  */
 public class Admin {
-    
+
     public static List<User> getUser() {
         List<User> list = new ArrayList<>();
         try {
             Class.forName(DBSDriver);
             Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
-             String sql = "Select ID, [Role], UserName, [Password], Telephone, Email, Gender, Birthdate, [Address] from [User] where [Role] = 1  ";
-             PreparedStatement stmt = con.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery();
-             while(rs.next()){
-                 list.add( new User(rs.getString("ID"),rs.getInt("Role"),rs.getString("UserName"),rs.getString("Password"),rs.getString("Telephone"),
-                         rs.getString("Email"),rs.getInt("Gender"),rs.getString("Birthdate"),rs.getString("Address")));
-             }
+            String sql = "Select Id, [Role], UserAccount, FirstName, LastName, [Password], Telephone, Gender, Birthdate, [Address] from [User] where Role = 2 ";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(new User(rs.getInt("ID"), rs.getInt("Role"), rs.getString("UserAccount"), rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Password"), rs.getString("Telephone"),
+                        rs.getString("Email"), rs.getInt("Gender"), rs.getDate("Birthdate"), null));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-    public static List<Book> getBook() {
-        List<Book> list = new ArrayList<>();
-        try {
-            Class.forName(DBSDriver);
-            Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
-             String sql = "";
-             PreparedStatement stmt = con.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery();
-             while(rs.next()){
-                 list.add( new Book(rs.getString("a"),rs.getString("Author"),rs.getString("Title"),rs.getDate("Publish_Date"),rs.getInt("Amount")));
-             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
+
 }

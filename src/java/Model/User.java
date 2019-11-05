@@ -6,29 +6,34 @@
 package Model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  *
- * @author Tran Phuong
+ * @author trong
  */
 public class User implements Serializable{
-    private String userId;
+    private int userId;
     private int role;
-    private String username;
+    private String userAccount;
+    private String firstname;
+    private String lastname;
     private String password;
     private String phoneNumber;
     private String email;
     private int gender;
-    private String birthday;
-    private String address;
+    private Date birthday;
+    private Address address;
 
     public User() {
     }
 
-    public User(String userId, int role, String username, String password, String phoneNumber, String email, int gender, String birthday, String address) {
+    public User(int userId, int role, String userAccount, String firstname, String lastname, String password, String phoneNumber, String email, int gender, Date birthday, Address address) {
         this.userId = userId;
         this.role = role;
-        this.username = username;
+        this.userAccount = userAccount;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -36,13 +41,20 @@ public class User implements Serializable{
         this.birthday = birthday;
         this.address = address;
     }
-    
 
-    public String getUserId() {
+    public String getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(String userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -54,13 +66,22 @@ public class User implements Serializable{
         this.role = role;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+    
 
     public String getPassword() {
         return password;
@@ -94,19 +115,19 @@ public class User implements Serializable{
         this.gender = gender;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
     

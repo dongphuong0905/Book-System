@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Dao;
+package DAO;
 
 /**
  *
- * @author PC
+ * @author trong
  */
-public interface DBSInterface {    
+public interface DBSInterface {
     public String DBSDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    public String DBSName = "jdbc:sqlserver://DAONCDE130098\\SQLEXPRESS:50132;databaseName=BookSystem;";
+    public String DBSName = "jdbc:sqlserver://LENOVO\\SQLEXPRESS:1433;databaseName=BookSystem;";
     public String DBSID = "sa";
-    public String DBSPass = "1234";
+    public String DBSPass = "123";
 }

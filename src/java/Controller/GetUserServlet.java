@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import Dao.Admin;
+import DAO.Admin;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -78,7 +78,6 @@ public class GetUserServlet extends HttpServlet {
         List<User> list = Admin.getUser();
         if (list.size() > 0) {
             request.setAttribute("listUser", list);
-            request.setAttribute("name", list.get(0).getUsername());
             request.getRequestDispatcher("table.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("index.html");

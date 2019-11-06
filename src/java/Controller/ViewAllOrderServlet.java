@@ -5,21 +5,14 @@
  */
 package Controller;
 
-import DAO.CityDAO;
 import DAO.OrderDAO;
-import DAO.OrderDetailDAO;
-import Model.Item;
+import Model.Order;
 import Model.User;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author trong
  */
-@WebServlet(name = "CreateOrderServlet", urlPatterns = {"/createorder"})
-public class CreateOrderServlet extends HttpServlet {
+@WebServlet(name = "ViewAllOrderServlet", urlPatterns = {"/viewallorder"})
+public class ViewAllOrderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,10 +42,10 @@ public class CreateOrderServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateOrderServlet</title>");
+            out.println("<title>Servlet ViewAllOrderServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateOrderServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ViewAllOrderServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -70,39 +63,10 @@ public class CreateOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        OrderDAO orderDao = new OrderDAO();
-        OrderDetailDAO orderDetailDao = new OrderDetailDAO();
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("CurrUser");
-        List<Item> itemList = new ArrayList<>();
-        BigDecimal totalPrice = new BigDecimal(0);
-        String paymentMethod = request.getParameter("paymentMethod");
-        String address = request.getParameter("address");
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("shoppingCart")) {
-                itemList = new Gson().fromJson(cookie.getValue(), new TypeToken<List<Item>>() {
-                }.getType());
-            }
-        }
-        for (Item item : itemList) {
-            totalPrice = (totalPrice.add(BigDecimal.valueOf(item.getPrice().doubleValue() * item.getQuantity()))).setScale(2, BigDecimal.ROUND_HALF_EVEN);
-        }
-        
-        OrderDAO.add(user.getUserId(), 4, totalPrice, paymentMethod, 0, CityDAO.getCity(Integer.parseInt(request.getParameter("city"))).getName() + " " + address);
-        for(Item item : itemList) {
-            orderDetailDao.add(OrderDAO.getCurrentOrderId(user.getUserId()), item.getBookId(), 0, item.getPrice(), item.getQuantity());
-        }
-        
-        for(Cookie cookie : cookies){
-            if(cookie.getName().equals("shoppingCart")){
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
-                break;
-            }
-        }
-        //request.getRequestDispatcher("/loadorder").forward(request, response);
-        response.sendRedirect("/bookstore/loadorder");
+        User user = (User)session.getAttribute("CurrUser");
+        List<Order> orderList = OrderDAO.getAll(user.getUserId());
+        request.setAttribute("orderList", orderList);
     }
 
     /**

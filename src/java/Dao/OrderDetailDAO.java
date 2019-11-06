@@ -26,11 +26,12 @@ public class OrderDetailDAO {
             Connection con = db.getConnection();
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT ID, OrderID, BookID, PromID, Price, "
-                    + "Amount, Total FROM OrderDetail WHERE OrderID = " + OrderId);
+                    + "Amount, Total FROM Order_Detail WHERE OrderID = " + OrderId);
             while(rs.next()){
                 listOrderDetail.add(new OrderDetail(rs.getInt("ID"), rs.getInt("OrderID"), rs.getInt("BookID"), rs.getInt("PromID"), 
                                                     rs.getBigDecimal("Price"), rs.getInt("Amount"), rs.getBigDecimal("Total")));
             }
+            con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

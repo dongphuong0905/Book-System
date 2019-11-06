@@ -42,7 +42,7 @@ public class UserDAO implements DBSInterface{
         try {
             Connection con = new Database().getConnection();
 
-            String sql = "Select Id, [Role], UserAccount, FirstName, LastName, [Password], Telephone, Email, Gender, Birthdate, [Address] from [User] where ID = " + UserID;
+            String sql = "Select Id, [Role], UserAccount, FirstName, LastName, [Password], Telephone, Email, Gender, Birthdate from [User] where ID = " + UserID;
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -50,6 +50,7 @@ public class UserDAO implements DBSInterface{
                         rs.getString("LastName"), rs.getString("Password"), rs.getString("Telephone"), rs.getString("Email"),
                         rs.getInt("Gender"), rs.getDate("Birthdate"), AddressDAO.getAddress(rs.getInt("ID")));
             }
+            con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,10 +70,31 @@ public class UserDAO implements DBSInterface{
             stmt.setString(5, lastname);
             stmt.setInt(6, userId);
             stmt.executeUpdate();
-            
+            con.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public static boolean changePassword(User user, String oldPass, String newPass, String newPassAuth) {
+        if (oldPass.equals(user.getPassword())) {
+            if (newPass.equals(newPassAuth)) {
+                try {
+                    Class.forName(DBSDriver);
+                    Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
+                    String sql = "Update [User] set [Password] = ? where Email = ? ";
+                    PreparedStatement stmt = con.prepareStatement(sql);
+                    stmt.setString(1, newPass);
+                    stmt.setString(2, user.getEmail());
+                    stmt.executeUpdate();
+                    con.close();
+                    return true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return false;
     }

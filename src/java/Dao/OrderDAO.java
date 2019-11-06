@@ -34,8 +34,9 @@ public class OrderDAO {
                 List<OrderDetail> listOrderDetail = new OrderDetailDAO().getAll(rs.getInt("ID"));
                 User user = UserDAO.getCurrentUser(rs.getInt("UserID"));
                 orderList.add(new Order(rs.getInt("ID"), user, listOrderDetail, rs.getInt("OStaID"), rs.getDate("Order_Date"), 
-                        rs.getBigDecimal("Total_Price"), rs.getString("Payment_Method"), rs.getInt("PaymentMethod")));
+                        rs.getBigDecimal("Total_Price"), rs.getString("Payment_Method"), rs.getInt("Payment_Status")));
             }
+            con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,11 +52,13 @@ public class OrderDAO {
             ResultSet rs = stmt.executeQuery("SELECT ID, UserID, OStaID, Order_Date, Total_Price, "
                     + "Payment_Method, Payment_Status FROM [ORDER] WHERE ID = " + OrderId);
             while(rs.next()){
-                List<OrderDetail> listOrderDetail = new OrderDetailDAO().getAll(rs.getInt("ID"));
-                User user = UserDAO.getCurrentUser(rs.getInt("UserID"));
-                order = new Order(rs.getInt("ID"), user, listOrderDetail, rs.getInt("OStaID"), rs.getDate("Order_Date"), 
-                        rs.getBigDecimal("Total_Price"), rs.getString("Payment_Method"), rs.getInt("PaymentMethod"));
+                int userID = rs.getInt("UserID");
+                List<OrderDetail> listOrderDetail = new OrderDetailDAO().getAll(OrderId);
+                User user = UserDAO.getCurrentUser(userID);
+                order = new Order(OrderId, user, listOrderDetail, rs.getInt("OStaID"), rs.getDate("Order_Date"), 
+                        rs.getBigDecimal("Total_Price"), rs.getString("Payment_Method"), rs.getInt("Payment_Status"));
             }
+            con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

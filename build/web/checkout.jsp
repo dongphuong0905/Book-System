@@ -697,7 +697,7 @@
                                                 <c:if test="${itemInCart != null}">
                                                     <c:forEach var="item" items="${itemInCart}">
                                                         <li><span class="left">${item.title} X ${item.quantity}</span> <span
-                                                                class="right">${item.price}</span></li>                  
+                                                                class="right">${item.price * item.quantity}</span></li>                  
                                                         </c:forEach>
                                                     </c:if>
                                             </ul>

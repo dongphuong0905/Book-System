@@ -3,7 +3,6 @@
     Created on : Oct 15, 2019, 8:55:18 AM
     Author     : PC
 --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <div class="site-header d-none d-lg-block">

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<%@ include file="/mutual_bars/header.jsp" %>
-<%@ include file="/mutual_bars/site-header.jsp" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="/mutual_bars/header.jsp" %>
 <c:if test="${CurrUser != null}">
-    <c:redirect context="/bookstore/my-account.jsp"/>
+    <c:redirect url="/my-account.jsp"/>
 </c:if>
+<%@include file="/mutual_bars/site-header.jsp" %>
 <div class="site-mobile-menu">
     <header class="mobile-header d-block d-lg-none pt--10 pb-md--10">
         <div class="container">
@@ -268,7 +269,7 @@
                         <a href="#">Currency - USD $ <i class="fas fa-angle-down"></i></a>
                         <ul class="sub-menu">
                             <li> <a href="cart.html">USD $</a></li>
-                            <li> <a href="checkout.html">EUR €</a></li>
+                            <li> <a href="checkout.html">EUR â¬</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children">
@@ -613,7 +614,7 @@ Footer Area
             <a href="#" class="payment-block">
                 <img src="image/icon/payment.png" alt="">
             </a>
-            <p class="copyright-text">Copyright © 2019 <a href="#" class="author">Pustok</a>. All Right Reserved.
+            <p class="copyright-text">Copyright Â© 2019 <a href="#" class="author">Pustok</a>. All Right Reserved.
                 <br>
                 Design By Pustok</p>
         </div>

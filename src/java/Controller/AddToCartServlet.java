@@ -73,9 +73,6 @@ public class AddToCartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         BookDAO bookDao = new BookDAO();
-
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("CurrUser");
         int bookId = Integer.parseInt(request.getParameter("bookId"));
         Book book = bookDao.get(bookId);
         int quantity = Integer.parseInt(request.getParameter("quantity"));

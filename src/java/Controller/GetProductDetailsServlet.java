@@ -64,6 +64,7 @@ public class GetProductDetailsServlet extends HttpServlet {
         BookDAO bookDao = new BookDAO();
         Book book = bookDao.get(bookId);
         request.setAttribute("book", book);
+        request.setAttribute("bookImage", bookDao.getImage(bookId));
         request.getRequestDispatcher("product-details.jsp").forward(request, response);
     }
 

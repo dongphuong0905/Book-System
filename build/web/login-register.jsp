@@ -2,7 +2,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="/mutual_bars/header.jsp" %>
 <c:if test="${CurrUser != null}">
-    <c:redirect url="/my-account.jsp"/>
+    <c:redirect url="/GetAllBook"/>
 </c:if>
 <%@include file="/mutual_bars/site-header.jsp" %>
 <div class="site-mobile-menu">

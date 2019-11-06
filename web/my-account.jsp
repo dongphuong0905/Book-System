@@ -1,7 +1,9 @@
+<%@page import="DAO.OrderDAO"%>
 <%@page import="DAO.OrderStatusDAO"%>
 <%@page import="DAO.CityDAO"%>
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="/mutual_bars/header.jsp" %>
 <c:if test="${CurrUser == null}">
     <c:redirect url="/index-user.jsp"/>
@@ -272,7 +274,7 @@
                             <a href="#">Currency - USD $ <i class="fas fa-angle-down"></i></a>
                             <ul class="sub-menu">
                                 <li> <a href="cart.html">USD $</a></li>
-                                <li> <a href="checkout.html">EUR €</a></li>
+                                <li> <a href="checkout.html">EUR â¬</a></li>
                             </ul>
                         </li>
                         <li class="menu-item-has-children">
@@ -509,15 +511,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:set var="i" value="0"></c:set>
+                                                <c:set var="i" value="1"></c:set>
                                                 <c:forEach var="order" items="${orderList}">
                                                     <tr>
                                                         <td>${i}</td>
                                                         <td>${order.id}</td>
                                                         <td>${order.orderDate}</td> 
-                                                        <td><%=OrderStatusDAO.getStatus(2)%></td>
+                                                        <td>${order.payStatus}</td>
                                                         <td>$${order.totalPrice}</td>
                                                         <td><a href="cart.html" class="btn">View</a></td>
+                                                        <c:set var="i" value="${i + 1}"></c:set>
                                                     </tr>
                                                 </c:forEach> 
                                             </tbody>
@@ -778,7 +781,7 @@ Footer Area
             <a href="#" class="payment-block">
                 <img src="image/icon/payment.png" alt="">
             </a>
-            <p class="copyright-text">Copyright © 2019 <a href="#" class="author">Pustok</a>. All Right Reserved.
+            <p class="copyright-text">Copyright Â© 2019 <a href="#" class="author">Pustok</a>. All Right Reserved.
                 <br>
                 Design By Pustok</p>
         </div>

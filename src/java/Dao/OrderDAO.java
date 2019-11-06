@@ -14,6 +14,7 @@ import java.sql.JDBCType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ import java.util.List;
 public class OrderDAO {
     
     public static List<Order> getAll(int userId){
-        List<Order> orderList = null;
+        List<Order> orderList = new ArrayList<>();
         try {
             Database db = new Database();
             Connection con = db.getConnection();
@@ -33,8 +34,10 @@ public class OrderDAO {
             while(rs.next()){
                 List<OrderDetail> listOrderDetail = new OrderDetailDAO().getAll(rs.getInt("ID"));
                 User user = UserDAO.getCurrentUser(rs.getInt("UserID"));
-                orderList.add(new Order(rs.getInt("ID"), user, listOrderDetail, rs.getInt("OStaID"), rs.getDate("Order_Date"), 
-                        rs.getBigDecimal("Total_Price"), rs.getString("Payment_Method"), rs.getInt("Payment_Status")));
+                Order order = new Order(rs.getInt("ID"), user, listOrderDetail, rs.getInt("OStaID"), rs.getDate("Order_Date"), 
+                        rs.getBigDecimal("Total_Price"), rs.getString("Payment_Method"), rs.getInt("Payment_Status"));
+                order.setPayStatus(OrderStatusDAO.getStatus(order.getId()));
+                orderList.add(order);
             }
             con.close();
         } catch (Exception e) {
@@ -57,6 +60,7 @@ public class OrderDAO {
                 User user = UserDAO.getCurrentUser(userID);
                 order = new Order(OrderId, user, listOrderDetail, rs.getInt("OStaID"), rs.getDate("Order_Date"), 
                         rs.getBigDecimal("Total_Price"), rs.getString("Payment_Method"), rs.getInt("Payment_Status"));
+                order.setPayStatus(OrderStatusDAO.getStatus(order.getId()));
             }
             con.close();
         } catch (Exception e) {
@@ -99,4 +103,5 @@ public class OrderDAO {
             e.printStackTrace();
         }
     }
+    
 }

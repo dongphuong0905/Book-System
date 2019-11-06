@@ -19,13 +19,14 @@ public class OrderStatusDAO {
         try {
             Connection con = new Database().getConnection();
 
-            String sql = "Select Description from Order_Status where ID = ? ";
+            String sql = "Select [Description] from Order_Status inner join [Order] on Order_Status.ID = [Order].OStaID where [Order].ID = ? ";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 return rs.getString("Description");
             }
+            con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

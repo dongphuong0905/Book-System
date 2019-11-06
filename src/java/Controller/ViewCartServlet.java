@@ -88,6 +88,7 @@ public class ViewCartServlet extends HttpServlet {
             }
         }
         request.setAttribute("totalPrice", totalPrice);
+        response.setCharacterEncoding("UTF-8");
         request.getRequestDispatcher("cart.jsp").forward(request, response);
     }
 

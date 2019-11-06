@@ -5,11 +5,14 @@
         <group>
             <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Controller/ViewAllOrderServlet.java</file>
             <file>file:/C:/Users/trong/Documents/Project/BookStore/web/shop-search-result.jsp</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/web/checkout.jsp</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Controller/ViewCartServlet.java</file>
             <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Model/OrderStatus.java</file>
             <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/DAO/OrderStatusDAO.java</file>
-            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/DAO/UserDAO.java</file>
             <file>file:/C:/Users/trong/Documents/Project/BookStore/web/my-account.jsp</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Model/Test.java</file>
             <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Model/Order.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/web/cart.jsp</file>
             <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/DAO/OrderDAO.java</file>
             <file>file:/C:/Users/trong/Documents/Project/BookStore/web/product-details.jsp</file>
         </group>

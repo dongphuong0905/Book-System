@@ -22,6 +22,7 @@ public class Order {
     private BigDecimal totalPrice;
     private String paymentMethod;
     private int paymentStatus;
+    private String payStatus;
 
     public int getoStaId() {
         return oStaId;
@@ -100,5 +101,14 @@ public class Order {
         this.paymentMethod = paymentMethod;
         this.paymentStatus = paymentStatus;
     }
+
+    public String getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(String payStatus) {
+        this.payStatus = payStatus;
+    }
+    
     
 }

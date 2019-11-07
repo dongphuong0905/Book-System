@@ -5,6 +5,13 @@
  */
 package DAO;
 
+import static DAO.DBSInterface.DBSDriver;
+import static DAO.DBSInterface.DBSID;
+import static DAO.DBSInterface.DBSName;
+import static DAO.DBSInterface.DBSPass;
+import Model.Book;
+import Model.Promotion;
+import Model.Publisher;
 import Model.User;
 import java.sql.Connection;
 import java.sql.Date;
@@ -12,6 +19,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -97,5 +106,29 @@ public class UserDAO implements DBSInterface{
             }
         }
         return false;
+    }
+     public static List<Book> getListBook() {
+        List<Book> listBook = new ArrayList<Book>();
+        PromotionDAO promotionDao = new PromotionDAO();
+         PublisherDAO  pdao = new PublisherDAO();
+        try {
+            Class.forName(DBSDriver);
+            Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
+            String sql = "Select * from Book";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+
+                Promotion promotion = promotionDao.getPromotion(rs.getInt("PromID"));
+                Publisher pub = pdao.getPublisher(rs.getInt("PublID"));
+                Book book = new Book(rs.getInt("id"), rs.getInt("BookID"), pub, rs.getString("Author"), rs.getString("Title"), rs.getString("Description"),
+                        rs.getDate("Publish_Date"), rs.getBigDecimal("Price"), rs.getInt("Amount"), promotion);
+                listBook.add(book);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listBook;
     }
 }

@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import DAO.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -58,7 +59,7 @@ public class GetAllBook extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -72,7 +73,8 @@ public class GetAllBook extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setAttribute("listBook", UserDAO.getListBook());
+        request.getRequestDispatcher("index-user.jsp").forward(request, response);
     }
 
     /**

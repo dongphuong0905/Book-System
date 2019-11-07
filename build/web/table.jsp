@@ -161,6 +161,7 @@
                                             <th>Gender</th>
                                             <th>Birthday</th>
                                             <th>Address</th>
+                                            <th>Black list</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -171,6 +172,7 @@
                                             <th>Gender</th>
                                             <th>Birthday</th>
                                             <th>Address</th>
+                                            <th>Black list</th>
                                         </tr>
                                     </tfoot>
 
@@ -183,6 +185,14 @@
                                                 <td>${users.gender}</td>
                                                 <td>${users.birthday}</td>
                                                 <td>${users.address}</td>
+                                                <td>
+                                                    <c:if test="${users.role==1 || user.role==0}">
+                                                        <button><a href="BlackListServlet?userId=${users.userId}&userRole=${users.role}">Block</a></button>
+                                                    </c:if>
+                                                    <c:if test="${users.role==2}">
+                                                        <button><a href="BlackListServlet?userId=${users.userId}&userRole=${users.role}">Unblock</a></button>
+                                                    </c:if>
+                                                </td>
                                             </tr>
                                         </c:forEach>
 

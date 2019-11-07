@@ -13,9 +13,9 @@ import java.util.Date;
  * @author trong
  */
 public class Book {
-    private int id;
+   private int id;
     private int bookId;
-    private int publId;
+    private Publisher publisher;
     private String author;
     private String title;
     private String description;
@@ -40,12 +40,12 @@ public class Book {
         this.bookId = bookId;
     }
 
-    public int getPublId() {
-        return publId;
+    public Publisher getPublId() {
+        return publisher;
     }
 
-    public void setPublId(int publId) {
-        this.publId = publId;
+    public void setPublId(Publisher publId) {
+        this.publisher = publId;
     }
 
     public String getAuthor() {
@@ -108,10 +108,10 @@ public class Book {
     public Book() {
     }
 
-    public Book(int id, int bookId, int publId, String author, String title, String description, Date publishedDate, BigDecimal price, int amount, Promotion promotion) {
+    public Book(int id, int bookId, Publisher publId, String author, String title, String description, Date publishedDate, BigDecimal price, int amount, Promotion promotion) {
         this.id = id;
         this.bookId = bookId;
-        this.publId = publId;
+        this.publisher = publId;
         this.author = author;
         this.title = title;
         this.description = description;

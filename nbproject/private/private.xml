@@ -3,13 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Project/New%20folder/Book-System/src/java/DAO/UserDAO.java</file>
-            <file>file:/E:/Project/New%20folder/Book-System/src/java/Controller/GetAllBook.java</file>
-            <file>file:/E:/Project/New%20folder/Book-System/src/java/DAO/PublisherDAO.java</file>
-            <file>file:/E:/Project/New%20folder/Book-System/src/java/Model/Publisher.java</file>
-            <file>file:/E:/Project/New%20folder/Book-System/src/java/Model/Book.java</file>
-            <file>file:/E:/Project/New%20folder/Book-System/src/java/DAO/Admin.java</file>
-            <file>file:/E:/Project/New%20folder/Book-System/src/java/DAO/Database.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Controller/GetAllBook.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Controller/LogoutServlet.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Controller/ViewCartServlet.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Controller/AddToCartServlet.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Model/OrderStatus.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Model/Test.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/DAO/BookDAO.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Controller/ViewAllOrderServlet.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/DAO/DBSInterface.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/DAO/OrderStatusDAO.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/DAO/UserDAO.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Model/Book.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Controller/LoginServlet.java</file>
+            <file>file:/C:/Users/trong/Documents/Project/BookStore/src/java/Model/Order.java</file>
         </group>
     </open-files>
 </project-private>

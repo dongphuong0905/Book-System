@@ -8,9 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="/mutual_bars/header.jsp" %>
 <%@ include file="/mutual_bars/site-header.jsp" %>
-<c:if test="${listBook == null}">
-    <c:redirect url="/GetAllBook"/>
-</c:if>
+
 <div class="site-mobile-menu">
     <header class="mobile-header d-block d-lg-none pt--10 pb-md--10">
         <div class="container">

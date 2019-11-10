@@ -519,7 +519,7 @@
                                                         <td>${order.orderDate}</td> 
                                                         <td>${order.payStatus}</td>
                                                         <td>$${order.totalPrice}</td>
-                                                        <td><a href="cart.html" class="btn">View</a></td>
+                                                        <td><a href="vieworderedcart?orderId=${order.id}" class="btn">View</a></td>
                                                         <c:set var="i" value="${i + 1}"></c:set>
                                                     </tr>
                                                 </c:forEach> 

@@ -480,7 +480,7 @@
                                                 <tr>
                                                 <td class="pro-remove"><a href="removeproduct?bookId=${item.bookId}"><i class="far fa-trash-alt"></i></a>
                                                 </td>
-                                                <td class="pro-thumbnail"><a href="#"><img
+                                                <td class="pro-thumbnail"><a href="getproductdetails?bookId=${item.bookId}"><img
                                                             src="image/products/product-1.jpg" alt="Product"></a></td>
                                                 <td class="pro-title"><a href="getproductdetails?bookId=${item.bookId}">${item.title}</a></td>
                                                 <td class="pro-price"><span>$${item.price}</span></td>

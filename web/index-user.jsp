@@ -8,7 +8,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="/mutual_bars/header.jsp" %>
 <%@ include file="/mutual_bars/site-header.jsp" %>
-
+<c:if test="${listBook==null}">
+<jsp:include page="GetBookServlet"></jsp:include>
+</c:if>
 <div class="site-mobile-menu">
     <header class="mobile-header d-block d-lg-none pt--10 pb-md--10">
         <div class="container">
@@ -615,53 +617,53 @@ Home Slider Tab
                          {"breakpoint":320, "settings": {"slidesToShow": 1} }
                          ]'>
                         <c:forEach var="list" items="${listBook}">
-                        <div class="single-slide">
-                            <div class="product-card">
-                                <div class="product-header">
-                                    <a href="#" class="author">
-                                        ${list.author}
-                                    </a>
+                            <div class="single-slide">
+                                <div class="product-card">
+                                    <div class="product-header">
+                                        <a href="#" class="author">
+                                            ${list.author}
+                                        </a>
                                         <h3><a href="<c:url value="getproductdetails?bookId=${list.id}"/>">${list.title}</a></h3>
-                                </div>
-                                <div class="product-card--body">
-                                    <div class="card-image">
-                                        <img src="image/products/product-1.jpg" alt="">
-                                        <div class="hover-contents">
-                                            <a href="<c:url value="getproductdetails?bookId=${list.id}"/>" class="hover-image">
-                                                <img src="image/products/product-1.jpg" alt="">
-                                            </a>
-                                            <div class="hover-btns">
-                                                <a href="cart.html" class="single-btn">
-                                                    <i class="fas fa-shopping-basket"></i>
+                                    </div>
+                                    <div class="product-card--body">
+                                        <div class="card-image">
+                                            <img src="image/products/product-1.jpg" alt="">
+                                            <div class="hover-contents">
+                                                <a href="<c:url value="getproductdetails?bookId=${list.id}"/>" class="hover-image">
+                                                    <img src="image/products/product-1.jpg" alt="">
                                                 </a>
-                                                <a href="wishlist.html" class="single-btn">
-                                                    <i class="fas fa-heart"></i>
-                                                </a>
-                                                <a href="compare.html" class="single-btn">
-                                                    <i class="fas fa-random"></i>
-                                                </a>
-                                                <a href="#" data-toggle="modal" data-target="#quickModal"
-                                                   class="single-btn">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
+                                                <div class="hover-btns">
+                                                    <a href="cart.html" class="single-btn">
+                                                        <i class="fas fa-shopping-basket"></i>
+                                                    </a>
+                                                    <a href="wishlist.html" class="single-btn">
+                                                        <i class="fas fa-heart"></i>
+                                                    </a>
+                                                    <a href="compare.html" class="single-btn">
+                                                        <i class="fas fa-random"></i>
+                                                    </a>
+                                                    <a href="#" data-toggle="modal" data-target="#quickModal"
+                                                       class="single-btn">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="price-block">
-                                        <span class="price">${list.price} đ</span>
-                                        <del class="price-old">69.96 đ</del>
-                                        <span class="price-discount">
-                                            <c:if test="${list.promotion.discount != null}">
-                                                ${list.promotion.discount} %
-                                            </c:if>
+                                        <div class="price-block">
+                                            <span class="price">${list.price} đ</span>
+                                            <del class="price-old">69.96 đ</del>
+                                            <span class="price-discount">
+                                                <c:if test="${list.promotion.discount != null}">
+                                                    ${list.promotion.discount} %
+                                                </c:if>
                                                 <c:if test="${list.promotion.discount == null}">
-                                                0 %
-                                            </c:if>
-                                        </span>
+                                                    0 %
+                                                </c:if>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </c:forEach>
                     </div>
                 </div>

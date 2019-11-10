@@ -107,12 +107,12 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-folder"></i>
-                        <span>Pages</span>
+                        <span>Manager Book</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                        <h6 class="dropdown-header">Login Screens:</h6>
-                        <a class="dropdown-item" href="login.html">Login</a>
-                        <a class="dropdown-item" href="register.html">Register</a>
+                        <h6 class="dropdown-header">CRUD</h6>
+                        <a class="dropdown-item" href="FormAddBookServlet">Add book</a>
+                        <a class="dropdown-item" href="FormAddCategoryServlet">Add category</a>
                         <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
                         <div class="dropdown-divider"></div>
                         <h6 class="dropdown-header">Other Pages:</h6>
@@ -128,7 +128,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="tables.jsp">
                         <i class="fas fa-fw fa-table"></i>
-                        <span>Tables</span></a>
+                        <span>User Table</span></a>
                 </li>
             </ul>
 
@@ -152,7 +152,6 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <h1>${list.getIndex(0).username}</h1>
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -162,6 +161,7 @@
                                             <th>Birthday</th>
                                             <th>Address</th>
                                             <th>Black list</th>
+                                            <th>Update</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -173,6 +173,7 @@
                                             <th>Birthday</th>
                                             <th>Address</th>
                                             <th>Black list</th>
+                                            <th>Update</th>
                                         </tr>
                                     </tfoot>
 
@@ -186,12 +187,15 @@
                                                 <td>${users.birthday}</td>
                                                 <td>${users.address}</td>
                                                 <td>
-                                                    <c:if test="${users.role==1 || user.role==0}">
-                                                        <button><a href="BlackListServlet?userId=${users.userId}&userRole=${users.role}">Block</a></button>
-                                                    </c:if>
                                                     <c:if test="${users.role==2}">
-                                                        <button><a href="BlackListServlet?userId=${users.userId}&userRole=${users.role}">Unblock</a></button>
+                                                        <button class="btn btn-danger"><a href="BlackListServlet?userId=${users.userId}&userRole=${users.role}" style="color: white">Block</a></button>
                                                     </c:if>
+                                                    <c:if test="${users.role==3}">
+                                                        <button class="btn btn-primary"><a  href="BlackListServlet?userId=${users.userId}&userRole=${users.role}" style="color: white">Unblock</a></button>
+                                                    </c:if>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-info"><a href="UpdateServlet?userId=${users.userId}" style="color: white">Update</a></button>
                                                 </td>
                                             </tr>
                                         </c:forEach>

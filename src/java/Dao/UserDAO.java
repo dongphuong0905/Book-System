@@ -9,7 +9,9 @@ import static DAO.DBSInterface.DBSDriver;
 import static DAO.DBSInterface.DBSID;
 import static DAO.DBSInterface.DBSName;
 import static DAO.DBSInterface.DBSPass;
+import Model.Address;
 import Model.Book;
+import Model.City;
 import Model.Promotion;
 import Model.Publisher;
 import Model.User;
@@ -131,4 +133,29 @@ public class UserDAO implements DBSInterface{
         }
         return listBook;
     }
+     
+     public static City getCity(){
+         City city = null; 
+         return city;
+     }
+     
+     public static Address getAddress(int userId){
+         Address address = null;
+            try {
+            Class.forName(DBSDriver);
+            Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
+            String sql = "Select * from Address where userid = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                City city = getCity();
+                address = new Address(rs.getInt("ID"), userId, city, rs.getString("address"));
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+            return address;
+     }
 }

@@ -52,7 +52,7 @@ public class BookDAO {
     public Book get(int bookId) {
         Book book = null;
         PromotionDAO promotionDao = new PromotionDAO();
-         PublisherDAO publisherDAO = new PublisherDAO();
+        PublisherDAO publisherDAO = new PublisherDAO();
         try {
             Database db = new Database();
             Connection con = db.getConnection();
@@ -61,8 +61,10 @@ public class BookDAO {
             stmt.setInt(1, bookId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                int pubid = rs.getInt("PublID");
                 Publisher publisher = publisherDAO.getPublisher(rs.getInt("PublID"));
                 Promotion promotion = promotionDao.getPromotion(rs.getInt("PromID"));
+                String name = publisher.getName();
                 book = new Book(rs.getInt("ID"), rs.getInt("BookID"), publisher, rs.getString("Author"),
                         rs.getString("Title"), rs.getString("Description"), rs.getDate("Publish_Date"),
                         rs.getBigDecimal("Price"), rs.getInt("Amount"), promotion);
@@ -96,10 +98,10 @@ public class BookDAO {
         }
         return bookList;
     }
-    
-    public List<BookImage> getImage(int bookId){
+
+    public List<BookImage> getImage(int bookId) {
         List<BookImage> listImage = new ArrayList<>();
-        
+
         try {
             Database db = new Database();
             Connection con = db.getConnection();
@@ -107,7 +109,7 @@ public class BookDAO {
             stmt.setInt(1, bookId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                BookImage book = new BookImage(rs.getInt("ID"), rs.getInt("BookID"), rs.getString("Description")); 
+                BookImage book = new BookImage(rs.getInt("ID"), rs.getInt("BookID"), rs.getString("Description"));
                 listImage.add(book);
             }
         } catch (Exception e) {

@@ -618,7 +618,7 @@
                                                         <label for="cb1">Cost On Delivery</label>
                                                     </div>
                                                     <div class="check-box">
-                                                        <input type="checkbox" id="cb2" name="paymentMethod" value="BANK" data-shipping >
+                                                        <input type="checkbox" id="cb2" name="paymentMethod" value="CARD" data-shipping >
                                                         <label for="cb2">Online Payment</label>
                                                     </div>
                                                 </div>

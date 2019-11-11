@@ -5,7 +5,9 @@
  */
 package Model;
 
+import DAO.BookDAO;
 import DAO.OrderStatusDAO;
+import DAO.PublisherDAO;
 
 /**
  *
@@ -13,6 +15,7 @@ import DAO.OrderStatusDAO;
  */
 public class Test {
     public static void main(String[] args) {
-        System.out.println(OrderStatusDAO.getStatus(35));
+        PublisherDAO p = new PublisherDAO();
+        System.out.println(p.getPublisher(2).getName());
     }
 }

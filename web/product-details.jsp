@@ -513,7 +513,7 @@
                                 <p class="tag-block">Tags: <a href="#">Movado</a>, <a href="#">Omega</a></p>
                                 <h3 class="product-title">${book.title}</h3>
                                 <ul class="list-unstyled">
-                                    <li>Publisher: <a href="#" class="list-value font-weight-bold"> Canon</a></li>
+                                    <li>Publisher: <a href="#" class="list-value font-weight-bold">${book.publisher.name}</a></li>
                                     <li>Author: <a href="#" class="list-value font-weight-bold"> ${book.author}</a></li>
                                     <li>Product Code: <span class="list-value"> ${book.id}</span></li>
                                         <c:if test="${book.amount == 0}">

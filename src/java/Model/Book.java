@@ -105,13 +105,21 @@ public class Book {
     }
 
 
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+    
     public Book() {
     }
 
-    public Book(int id, int bookId, Publisher publId, String author, String title, String description, Date publishedDate, BigDecimal price, int amount, Promotion promotion) {
+    public Book(int id, int bookId, Publisher publisher, String author, String title, String description, Date publishedDate, BigDecimal price, int amount, Promotion promotion) {
         this.id = id;
         this.bookId = bookId;
-        this.publisher = publId;
+        this.publisher = publisher;
         this.author = author;
         this.title = title;
         this.description = description;
@@ -120,6 +128,8 @@ public class Book {
         this.amount = amount;
         this.promotion = promotion;
     }
+
+  
     
     
     

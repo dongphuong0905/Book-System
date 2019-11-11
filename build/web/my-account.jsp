@@ -521,7 +521,7 @@
                                                         <td>$${order.totalPrice}</td>
                                                         <td><a href="vieworderedcart?orderId=${order.id}" class="btn">View</a></td>
                                                         <c:set var="i" value="${i + 1}"></c:set>
-                                                    </tr>
+                                                        </tr>
                                                 </c:forEach> 
                                             </tbody>
                                         </table>
@@ -574,7 +574,7 @@
                             <div class="tab-pane fade" id="address-edit" role="tabpanel">
                                 <div class="myaccount-content">
                                     <h3>Change Password</h3>
-                                    <form action="ChangePass">
+                                    <form action="ChangePass" method="post">
                                         <div class="row">
                                             <div class="col-lg-6 col-12  mb--30">
                                                 <input id="current-pwd" placeholder="Current Password"
@@ -592,6 +592,13 @@
                                         <div class="col-12">
                                             <button class="btn btn--primary" type="submit"><i class="fa fa-edit"></i>Save Changes</button>
                                         </div>
+                                        <input hidden value="${CurrUser.userId}" name="userId"/>
+                                        <c:if test="${stt=="true"}">
+                                            <div style="color:green">${msg}</div>
+                                        </c:if>
+                                        <c:if test="${stt=="false"}">
+                                            <div style="color:red">${msg}</div>
+                                        </c:if>
                                     </form>
                                 </div>
                             </div>
@@ -644,6 +651,7 @@
                                                 <div class="col-12">
                                                     <button class="btn btn--primary" type="submit">Save Changes</button>
                                                 </div>
+
                                             </div>
                                         </form>
                                     </div>

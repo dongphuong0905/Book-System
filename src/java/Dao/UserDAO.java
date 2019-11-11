@@ -28,7 +28,7 @@ import java.util.List;
  *
  * @author trong
  */
-public class UserDAO implements DBSInterface{
+public class UserDAO implements DBSInterface {
 
     public static User getCurrentUser(String email) {
         try {
@@ -88,7 +88,7 @@ public class UserDAO implements DBSInterface{
         }
         return false;
     }
-    
+
     public static boolean changePassword(User user, String oldPass, String newPass, String newPassAuth) {
         if (oldPass.equals(user.getPassword())) {
             if (newPass.equals(newPassAuth)) {
@@ -109,10 +109,11 @@ public class UserDAO implements DBSInterface{
         }
         return false;
     }
-     public static List<Book> getListBook() {
+
+    public static List<Book> getListBook() {
         List<Book> listBook = new ArrayList<Book>();
         PromotionDAO promotionDao = new PromotionDAO();
-         PublisherDAO  pdao = new PublisherDAO();
+        PublisherDAO pdao = new PublisherDAO();
         try {
             Class.forName(DBSDriver);
             Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
@@ -120,7 +121,6 @@ public class UserDAO implements DBSInterface{
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-
                 Promotion promotion = promotionDao.getPromotion(rs.getInt("PromID"));
                 Publisher pub = pdao.getPublisher(rs.getInt("PublID"));
                 Book book = new Book(rs.getInt("id"), rs.getInt("BookID"), pub, rs.getString("Author"), rs.getString("Title"), rs.getString("Description"),
@@ -133,15 +133,28 @@ public class UserDAO implements DBSInterface{
         }
         return listBook;
     }
-     
-     public static City getCity(){
-         City city = null; 
-         return city;
-     }
-     
-     public static Address getAddress(int userId){
-         Address address = null;
-            try {
+
+    public static City getCity(int cityId) {
+        City city = null;
+        try {
+            Class.forName(DBSDriver);
+            Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
+            String sql = "Select * from City where ID = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, cityId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                city = new City(rs.getInt("ID"), rs.getString("Name"));
+            }
+        } catch (Exception e) {
+
+        }
+        return city;
+    }
+
+    public static Address getAddress(int userId) {
+        Address address = null;
+        try {
             Class.forName(DBSDriver);
             Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
             String sql = "Select * from Address where userid = ?";
@@ -149,13 +162,58 @@ public class UserDAO implements DBSInterface{
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                City city = getCity();
+                City city = getCity(rs.getInt("City"));
                 address = new Address(rs.getInt("ID"), userId, city, rs.getString("address"));
-
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-            return address;
-     }
+        return address;
+    }
+
+    public static boolean passTrue(int userId, String curPass) {
+        int id = -1;
+        try {
+            Class.forName(DBSDriver);
+            Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
+            String sql = "Select ID from [User] where [Password] = ? and ID = ?" ;
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, curPass);
+            stmt.setInt(2, userId);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                id = rs.getInt("ID");
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        if(id>0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    
+    public static boolean changePass(String newPass, int userId){
+        try {
+            Class.forName(DBSDriver);
+            Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
+            String sql = "Update [User] set [Password] = ? where ID = ? ";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, newPass);
+            stmt.setInt(2, userId);
+            return  stmt.executeUpdate() > 0;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    public static boolean validateChangePass(String curPass, String newPass, String confPass, int userId){
+           if(passTrue(userId, curPass)){
+               if(newPass.equals(confPass)){
+                    return changePass(newPass, userId);
+               }
+           }
+           return false;
+    }
 }

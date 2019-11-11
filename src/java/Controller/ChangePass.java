@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package Controller;
 
-import DAO.Admin;
+import DAO.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Tran Phuong
  */
-@WebServlet(name = "AddCategoryServlet", urlPatterns = {"/AddCategoryServlets"})
-public class AddCategoryServlet extends HttpServlet {
+@WebServlet(name = "ChangePass", urlPatterns = {"/ChangePass"})
+public class ChangePass extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +38,10 @@ public class AddCategoryServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddCategoryServlet</title>");
+            out.println("<title>Servlet ChangePass</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddCategoryServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ChangePass at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,20 +59,7 @@ public class AddCategoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String category = request.getParameter("category");
-
-        if (Admin.addCategory(category)) {
-            request.setAttribute("message", "ADD SUCCESSFUL!");
-             request.setAttribute("status", "success");
-            RequestDispatcher rd = request.getRequestDispatcher("FormAddCategoryServlet");
-            rd.forward(request, response);
-        } else {
-            request.setAttribute("message", "ADD FAIL!");
-            request.setAttribute("status", "fail");
-            RequestDispatcher rd = request.getRequestDispatcher("FormAddCategoryServlet");
-            rd.forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -87,8 +73,17 @@ public class AddCategoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        processRequest(request, response);
+        String curPass = (String)request.getParameter("curPass");
+        String newPass =(String) request.getParameter("newPass");
+        String confPass =(String) request.getParameter("confPass");
+        int userId = Integer.parseInt((String)request.getParameter("userId")) ;
+        boolean check = UserDAO.validateChangePass(curPass, newPass, confPass, userId);
+        if(check){
+            response.sendRedirect("index-user.jsp");
+        }else{
+             response.sendRedirect("my-account.jsp");
+        }
+        
     }
 
     /**

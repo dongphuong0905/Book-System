@@ -18,16 +18,19 @@ public class PublisherDAO {
 
     public PublisherDAO() {
     }
-    public static Publisher getPublisher(int id) {
+
+    public Publisher getPublisher(int id) {
         Publisher pub = null;
         try {
             Database db = new Database();
             Connection con = db.getConnection();
 
-            String sql = "Select * from Publisher where id="+id;
+            String sql = "Select * from Publisher where ID=" + id;
             PreparedStatement stmt = con.prepareStatement(sql);
-            ResultSet rs= stmt.executeQuery();
-            pub = new Publisher(rs.getInt("ID"), rs.getString("Publisher_Name"));
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                pub = new Publisher(rs.getInt("ID"), rs.getString("Publisher_Name"));
+            }
         } catch (Exception e) {
 
         }

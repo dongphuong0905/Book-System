@@ -11,20 +11,22 @@
 <%@ include file="/mutual_bars/header.jsp" %>
 <%@ include file="/mutual_bars/site-header.jsp" %>
 <script>
-    function cbclick(e){
-   e = e || event;
-   var cb = e.srcElement || e.target;
-   if (cb.type !== 'checkbox') {return true;}
-   var cbxs = document.getElementById('radiocb').getElementsByTagName('input'), i=cbxs.length;
-    while(i--) {
-        if (cbxs[i].type && cbxs[i].type == 'checkbox' && cbxs[i].id !== cb.id) {
-         cbxs[i].checked = false;
+    function cbclick(e) {
+        e = e || event;
+        var cb = e.srcElement || e.target;
+        if (cb.type !== 'checkbox') {
+            return true;
         }
+        var cbxs = document.getElementById('radiocb').getElementsByTagName('input'), i = cbxs.length;
+        while (i--) {
+            if (cbxs[i].type && cbxs[i].type == 'checkbox' && cbxs[i].id !== cb.id) {
+                cbxs[i].checked = false;
+            }
+        }
+        // if the click should always result in a checked checkbox 
+        // unconmment this:
+        cb.checked = true;
     }
-    // if the click should always result in a checked checkbox 
-    // unconmment this:
-    cb.checked = true;
-}
 </script>
 <div class="site-mobile-menu">
     <header class="mobile-header d-block d-lg-none pt--10 pb-md--10">
@@ -478,7 +480,7 @@
                     <div class="row row-40">
                         <div class="col-12">
                             <h1 class="quick-title">Checkout</h1>
-                            
+
                             <!-- Slide Down Trigger  -->
                             <c:choose>
                                 <c:when test = "${CurrUser == null}">
@@ -509,8 +511,8 @@
                                                     <div class="d-flex align-items-center flex-wrap">
                                                         <button type="submit" class="btn btn-outlined   mr-3">Login</button>
                                                         <div class="d-inline-flex align-items-center">
-                                                            <input type="checkbox" id="accept_terms" class="mb-0 mr-1">
-                                                            <label for="accept_terms" class="mb-0">I’ve read and accept
+                                                            <input type="checkbox" id="accept_terms" class="mb-0 mr-1" required="true">
+                                                            <label for="accept_terms" class="mb-0" required>I’ve read and accept
                                                                 the terms &amp; conditions</label>
                                                         </div>
                                                     </div>
@@ -543,7 +545,7 @@
                                                     <div class="d-flex align-items-center flex-wrap">
                                                         <a href="#" class="btn btn-outlined   mr-3">Login</a>
                                                         <div class="d-inline-flex align-items-center">
-                                                            <input type="checkbox" id="accept_terms" class="mb-0 mr-1">
+                                                            <input type="checkbox" id="accept_terms" class="mb-0 mr-1" required="true">
                                                             <label for="accept_terms" class="mb-0">I’ve read and accept
                                                                 the terms &amp; conditions</label>
                                                         </div>
@@ -571,7 +573,7 @@
                                 </form>
                             </div>
                         </div>
-                        
+
                         <form action="createorder" method="get" class="row row-40">                                                  
                             <div class="col-lg-7 mb--20">
                                 <c:if test="${CurrUser != null}">
@@ -587,7 +589,7 @@
                                                 <label>Last Name*</label>
                                                 <input type="text" placeholder="Last Name" value="${CurrUser.lastname}">
                                             </div>
-                                            
+
                                             <div class="col-12 col-12 mb--20">
                                                 <label>City/Province</label>
                                                 <select class="nice-select" name="city">
@@ -686,6 +688,41 @@
                                 </c:if>
                             </div>
                             <jsp:include page="loadcart"></jsp:include>
+                            <c:if test="${CurrUser == null}">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <!-- Cart Total -->
+                                        <div class="col-12">
+                                            <div class="checkout-cart-total">
+                                                <h2 class="checkout-title">YOUR ORDER</h2>
+                                                <h4>Product <span>Total</span></h4>
+                                                <ul>
+                                                    <c:if test="${itemInCart != null}">
+                                                        <c:forEach var="item" items="${itemInCart}">
+                                                            <li><span class="left">${item.title} X ${item.quantity}</span> <span
+                                                                    class="right">${item.price * item.quantity}</span></li>                  
+                                                            </c:forEach>
+                                                        </c:if>
+                                                </ul>
+                                                <p>Sub Total <span>$${totalPrice}</span></p>
+                                                <p>Shipping Fee <span>$0.00</span></p>
+                                                <h4>Grand Total <span>$${totalPrice}</span></h4>
+                                                <c:if test="${CurrUser != null}">
+                                                    <c:if test="${totalPrice != 0}">
+                                                        <div class="term-block">
+                                                            <input type="checkbox" id="accept_terms2" required="true">
+                                                            <label for="accept_terms2">I’ve read and accept the terms &
+                                                                conditions</label>
+                                                        </div>
+                                                        <button class="place-order w-100" type="submit">Place order</button>
+                                                    </c:if>
+                                                </c:if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${CurrUser != null}">
                                 <div class="col-lg-5">
                                     <div class="row">
                                         <!-- Cart Total -->
@@ -694,38 +731,32 @@
                                                 <h2 class="checkout-title">YOUR ORDER</h2>
                                                 <h4>Product <span>Total</span></h4>
                                                 <ul>
-                                                <c:if test="${itemInCart != null}">
-                                                    <c:forEach var="item" items="${itemInCart}">
-                                                        <li><span class="left">${item.title} X ${item.quantity}</span> <span
-                                                                class="right">${item.price * item.quantity}</span></li>                  
-                                                        </c:forEach>
+                                                    <c:if test="${itemInCart != null}">
+                                                        <c:forEach var="item" items="${itemInCart}">
+                                                            <li><span class="left">${item.title} X ${item.quantity}</span> <span
+                                                                    class="right">${item.price * item.quantity}</span></li>                  
+                                                            </c:forEach>
+                                                        </c:if>
+                                                </ul>
+                                                <p>Sub Total <span>$${totalPrice}</span></p>
+                                                <p>Shipping Fee <span>$0.00</span></p>
+                                                <h4>Grand Total <span>$${totalPrice}</span></h4>
+                                                <c:if test="${CurrUser != null}">
+                                                    <c:if test="${totalPrice != 0}">
+                                                        <div class="term-block">
+                                                            <input type="checkbox" id="accept_terms2" required="true">
+                                                            <label for="accept_terms2">I’ve read and accept the terms &
+                                                                conditions</label>
+                                                        </div>
+                                                        <button class="place-order w-100" type="submit">Place order</button>
                                                     </c:if>
-                                            </ul>
-                                            <p>Sub Total <span>$${totalPrice}</span></p>
-                                            <p>Shipping Fee <span>$0.00</span></p>
-                                            <h4>Grand Total <span>$${totalPrice}</span></h4>
-                                            <div class="method-notice mt--25">
-                                                <article>
-                                                    <h3 class="d-none sr-only">blog-article</h3>
-                                                    Sorry, it seems that there are no available payment methods for
-                                                    your state. Please contact us if you
-                                                    require
-                                                    assistance
-                                                    or wish to make alternate arrangements.
-                                                </article>
+                                                </c:if>
                                             </div>
-                                            <c:if test="${CurrUser != null}">
-                                                <div class="term-block">
-                                                    <input type="checkbox" id="accept_terms2" required="true">
-                                                    <label for="accept_terms2">I’ve read and accept the terms &
-                                                        conditions</label>
-                                                </div>
-                                                <button class="place-order w-100" type="submit">Place order</button>
-                                            </c:if>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </c:if>
+
                         </form>
                     </div>
                 </div>

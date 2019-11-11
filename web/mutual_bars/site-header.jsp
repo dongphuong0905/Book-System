@@ -325,8 +325,11 @@
                                         <div class="btn-block">
                                             <a href="/bookstore/viewcart" class="btn">View Cart <i
                                                     class="fas fa-chevron-right"></i></a>
-                                            <a href="checkout.jsp" class="btn btn--primary">Check Out <i
-                                                    class="fas fa-chevron-right"></i></a>
+                                                <c:if test="${itemInCart != null}">
+                                                <a href="checkout.jsp" class="btn btn--primary">Check Out <i
+                                                        class="fas fa-chevron-right"></i></a>
+                                                </c:if>
+
                                         </div>
                                     </div>
                                 </div>

@@ -74,6 +74,11 @@ public class RemoveProductServlet extends HttpServlet {
                         break;
                     }
                 }
+                if(itemList.isEmpty()){
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                    break;
+                }
                 cookie.setValue(new Gson().toJson(itemList));
                 response.addCookie(cookie);
                 break;

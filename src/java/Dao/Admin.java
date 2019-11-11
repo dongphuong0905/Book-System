@@ -32,12 +32,13 @@ public class Admin {
         try {
             Class.forName(DBSDriver);
             Connection con = DriverManager.getConnection(DBSName, DBSID, DBSPass);
-            String sql = "Select Id, [Role], UserAccount, FirstName, LastName, [Password], Telephone, Gender, Birthdate, [Address] from [User] where Role = 2 ";
+            String sql = "Select Id, [Role], UserAccount, FirstName, LastName, [Password], Telephone, Email, Gender, Birthdate from [User] where Role = 1 ";
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                list.add(new User(rs.getInt("ID"), rs.getInt("Role"), rs.getString("UserAccount"), rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Password"), rs.getString("Telephone"),
-                        rs.getString("Email"), rs.getInt("Gender"), rs.getDate("Birthdate"), null));
+                list.add(new User(rs.getInt("ID"), rs.getInt("Role"), rs.getString("UserAccount"), rs.getString("FirstName"),
+                        rs.getString("LastName"), rs.getString("Password"), rs.getString("Telephone"), rs.getString("Email"),
+                        rs.getInt("Gender"), rs.getDate("Birthdate"), AddressDAO.getAddress(rs.getInt("ID"))));
             }
         } catch (Exception e) {
             e.printStackTrace();

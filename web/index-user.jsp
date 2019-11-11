@@ -633,7 +633,7 @@ Home Slider Tab
                                                     <img src="image/products/product-1.jpg" alt="">
                                                 </a>
                                                 <div class="hover-btns">
-                                                    <a href="cart.html" class="single-btn">
+                                                    <a href="addtocart?bookId=${list.bookId}&quantity=1" class="single-btn">
                                                         <i class="fas fa-shopping-basket"></i>
                                                     </a>
                                                     <a href="wishlist.html" class="single-btn">
